@@ -1,8 +1,12 @@
 package com.dcsg.fulfillment.candyjar;
 
-public class OperationCandyJarServiceTests {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-	public void testGetEcode() {
-		
-	}
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class OperationCandyJarServiceTests {
+	
 }

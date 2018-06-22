@@ -1,5 +1,6 @@
 package com.dcsg.fulfillment.candyjar;
 
+import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -45,6 +46,28 @@ public class ProductCodeMap  {
 			eCodeMap.put(style, styleMap);
 			pcm.put(eCode, eCodeMap);
 		}
+	}
+	
+	public void addList(List<String> productInfo) {
+		add(productInfo.get(0), productInfo.get(1), productInfo.get(2), productInfo.get(3));
+	}
+	
+	public void addAll(List<List<String>> products) {
+		for(List<String> prod : products) {
+			addList(prod);
+		}
+		
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		ProductCodeMap prodCodeMap = (ProductCodeMap) o;
+		return this.pcm.equals(prodCodeMap.pcm);
+	}
+	
+	@Override
+	public String toString() {
+		return pcm.toString();
 	}
 
 }
