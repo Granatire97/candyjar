@@ -8,14 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.Map;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.ResultSet;
 
 @Repository
@@ -104,9 +97,6 @@ class ProductCodeMapRowMapper implements RowMapper<List<String>> {
         productInfo.add(rs.getString(2));
         productInfo.add(rs.getString(3));
         productInfo.add(rs.getString(4));
-        
-        System.out.println(productInfo);
-        System.out.println("why no me?");
         
         return productInfo;
     }
