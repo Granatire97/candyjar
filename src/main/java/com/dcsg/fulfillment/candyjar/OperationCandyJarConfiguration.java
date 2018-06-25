@@ -14,4 +14,14 @@ public class OperationCandyJarConfiguration {
     private String unixPassword;
     @Value("${unix.host}")
     private String unixHost;
+	public String getUnixUsername() {
+		return unixUsername;
+	}
+	public String getUnixHost() {
+		return unixHost;
+	}
+	public String getUnixPassword() {
+		return unixPassword;
+	}
+    
 }

@@ -1,5 +1,7 @@
 package com.dcsg.fulfillment.candyjar;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class OperationCandyJarService {
 	
 	private @Autowired OperationCandyJarRepository repo;
+	private @Autowired OperationCandyJarConfiguration config;
 	
 	public ProductCodeMap getByEcode(String eCode) {
 		return repo.getByEcode(eCode);
@@ -21,4 +24,9 @@ public class OperationCandyJarService {
 		return repo.getByUpc(Upc);
 	}
 
+	public List<String> getSkuHistory(String sku) {
+		RemoteCommandExecuter rce = new RemoteCommandExecuter(config.getUnixUsername(), config.getUnixPassword(), config.getUnixHost(), 22);
+		String command  = "grep -r \"" + sku + "\" ../../apps/syncatc/log/";
+		return rce.executeCommand(command);
+	}
 }

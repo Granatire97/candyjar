@@ -56,7 +56,7 @@ public class OperationCandyJarRepository {
     public ProductCodeMap getBySku(String sku) {
 
         String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC " + 
-        		"from item_cbo" + 
+        		"from item_cbo " + 
         		"where item_name = ?";
 
         try {

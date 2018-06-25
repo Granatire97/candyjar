@@ -59,15 +59,13 @@ public class OperationCandyJarController {
 		return json;
 	}
 	
-	/*
+	
 	@RequestMapping(path = "/SkuHistory")
 	@ResponseBody
 	public List<String> getFile(@RequestParam(value="sku") String sku) throws IOException {
 		//FtpConfiguration ftp = new FtpConfiguration();
-		RemoteCommandExecuter rce = new RemoteCommandExecuter();
-		String command  = "grep -r \"" + sku + "\" ../../apps/syncatc/log/";
-		return rce.executeCommand(command);
+		
+		return service.getSkuHistory(sku);
 	}
-	*/
 	
 }
