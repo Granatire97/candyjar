@@ -2,6 +2,7 @@ package com.dcsg.fulfillment.candyjar;
 
 import java.io.IOException;
 import java.util.TreeSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -40,6 +41,7 @@ public class OperationCandyJarController {
 		return json;
 	}
 	
+	@RequestMapping(path = "/sku")
 	@ResponseBody
 	public String getBySku(@RequestParam(value="sku") String sku) throws IOException {
 		
@@ -62,10 +64,13 @@ public class OperationCandyJarController {
 	
 	@RequestMapping(path = "/SkuHistory")
 	@ResponseBody
-	public List<String> getFile(@RequestParam(value="sku") String sku) throws IOException {
-		//FtpConfiguration ftp = new FtpConfiguration();
-		
-		return service.getSkuHistory(sku);
+	public String getFile(@RequestParam(value="sku") String sku) throws IOException {
+
+		return service.getSkuHistory(sku).toString();
 	}
+	
+	
+	
+	
 	
 }
