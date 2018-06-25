@@ -17,19 +17,15 @@ public class OperationCandyJarRepository {
     private @Autowired JdbcTemplate jdbcTemplate;
 
     public ProductCodeMap getByEcode(String eCode) {
-    	
-    	System.out.println("howdy");
-    	
+
         String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC " + 
         		"from item_cbo " + 
         		"where item_image_filename like ?";
 
         try {
             ProductCodeMap pcm = new ProductCodeMap();
-            pcm.addAll(jdbcTemplate.query(sql, new Object[] {"%" + eCode + "%"}, new ProductCodeMapRowMapper()));
-            
-            System.out.println(pcm);
-            
+            pcm.addAll(jdbcTemplate.query(sql, new Object[] {"%" + eCode + "%"}, new ProductCodeMapRowMapper())); 
+           
             return pcm;
 
         } catch (EmptyResultDataAccessException e) {
@@ -37,7 +33,7 @@ public class OperationCandyJarRepository {
         }
     }
     public ProductCodeMap getByStyle(String style) {
-    	System.out.println("howdy");
+  
         String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC " + 
         		"from item_cbo " + 
         		"where item_style = ?";
@@ -46,7 +42,6 @@ public class OperationCandyJarRepository {
         	ProductCodeMap pcm = new ProductCodeMap();
             pcm.addAll(jdbcTemplate.query(sql, new Object[] {style}, new ProductCodeMapRowMapper()));
             
-            System.out.println(pcm);
             return pcm;
 
         } catch (EmptyResultDataAccessException e) {
