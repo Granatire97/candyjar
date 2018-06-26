@@ -64,12 +64,19 @@ public class OperationCandyJarController {
 	
 	@RequestMapping(path = "/SkuHistory")
 	@ResponseBody
-	public String getFile(@RequestParam(value="sku") String sku) throws IOException {
+	public String geSkuHistory(@RequestParam(value="sku") String sku) throws IOException {
 
 		return service.getSkuHistory(sku).toString();
 	}
 	
-	
+	@RequestMapping(path = "/SkuAvailableQuantity")
+	@ResponseBody
+	public String getSkuAvailableQuantity(@RequestParam(value="sku") String sku) throws IOException {
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = objectMapper.writeValueAsString(service.getSkuAvailableQuantity(sku));
+		return json;
+	}
 	
 	
 	
