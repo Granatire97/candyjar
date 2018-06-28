@@ -59,7 +59,7 @@ public class OperationCandyJarService {
 			HashMap<String, String> data = new HashMap<String, String>();
 			String [] item = lines.get(i).split(",");
 			for(int j = 0; j < item.length; j++) {
-				data.put(keys[j], item[j]);
+				data.put(keys[j].replaceAll(" ", ""), item[j]);
 			}
 			entries.add(data);
 		}
