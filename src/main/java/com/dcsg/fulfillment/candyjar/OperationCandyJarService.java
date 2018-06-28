@@ -31,8 +31,17 @@ public class OperationCandyJarService {
 		RemoteCommandExecuter rce = new RemoteCommandExecuter(config.getUnixUsername(), config.getUnixPassword(), config.getUnixHost(), 22);
 		String command = "grep -hn \":\\\"" + sku + "\\\"\" ../../apps/syncatc/log/SyncATC.network.activity.*";
 		List<String> lines = rce.executeCommand(command);
+		
+		System.out.println(lines);
 		for(int i = 0; i < lines.size(); i++) {
-			lines.set(i, lines.get(i).split(" ")[2]);
+			StringBuilder newLine = new StringBuilder(lines.get(i).split(" ")[2]);
+			newLine.insert(newLine.length()-15, '-');
+			newLine.insert(newLine.length()-13, '-');
+			newLine.insert(newLine.length()-11, ' ');
+			newLine.insert(newLine.length()-9, ':');
+			newLine.insert(newLine.length()-7, ':');
+			newLine.insert(newLine.length()-5, '.');
+			lines.set(i, newLine.toString());		
 		}
 		return lines;
 	}
