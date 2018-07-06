@@ -1,9 +1,9 @@
 package com.dcsg.fulfillment.candyjar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,16 +14,16 @@ public class OperationCandyJarService {
 	private @Autowired OperationCandyJarRepository repo;
 	private @Autowired OperationCandyJarConfiguration config;
 	
-	public ProductCodeMap getByEcode(String eCode) {
+	public List<OperationCandyJarResult> getByEcode(String eCode) throws IOException {
 		return repo.getByEcode(eCode);
 	}
-	public ProductCodeMap getByStyle(String Style) {
+	public List<OperationCandyJarResult> getByStyle(String Style) throws IOException {
 		return repo.getByStyle(Style);
 	}
-	public ProductCodeMap getBySku(String Sku) {
+	public List<OperationCandyJarResult> getBySku(String Sku) throws IOException {
 		return repo.getBySku(Sku);
 	}
-	public ProductCodeMap getByUpc(String Upc) {
+	public List<OperationCandyJarResult> getByUpc(String Upc) throws IOException {
 		return repo.getByUpc(Upc);
 	}
 

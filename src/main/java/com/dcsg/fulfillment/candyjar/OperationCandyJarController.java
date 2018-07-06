@@ -1,11 +1,7 @@
 package com.dcsg.fulfillment.candyjar;
 
 import java.io.IOException;
-import java.util.TreeSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +18,10 @@ public class OperationCandyJarController {
 	
 	@RequestMapping(path = "/eCode")
 	@ResponseBody
-	public String getByEcode(@RequestParam(value="eCode") String eCode) throws IOException {
+	public String getByEcode2(@RequestParam(value="eCode") String eCode) throws IOException, SQLException {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(service.getByEcode(eCode).pcm);	
+		String json = objectMapper.writeValueAsString(service.getByEcode(eCode));	
 		return json;
 	}
 	
@@ -35,9 +31,7 @@ public class OperationCandyJarController {
 		
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(service.getByStyle(style).pcm);
-		System.out.println(service.getByStyle(style));
-		
+		String json = objectMapper.writeValueAsString(service.getByStyle(style));
 		return json;
 	}
 	
@@ -47,7 +41,7 @@ public class OperationCandyJarController {
 		
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(service.getBySku(sku).pcm);
+		String json = objectMapper.writeValueAsString(service.getBySku(sku));
 		return json;
 	}
 	
@@ -57,7 +51,7 @@ public class OperationCandyJarController {
 		
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(service.getByUpc(upc).pcm);	
+		String json = objectMapper.writeValueAsString(service.getByUpc(upc));	
 		return json;
 	}
 	

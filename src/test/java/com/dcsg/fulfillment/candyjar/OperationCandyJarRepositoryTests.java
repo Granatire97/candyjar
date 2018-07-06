@@ -1,6 +1,11 @@
 package com.dcsg.fulfillment.candyjar;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,47 +24,87 @@ import org.springframework.boot.test.context.ConfigFileApplicationContextInitial
 public class OperationCandyJarRepositoryTests {
 	
 	private @Autowired OperationCandyJarRepository repo;
-	private ProductCodeMap pcm;
+	private List<OperationCandyJarResult> resultRow = new ArrayList<OperationCandyJarResult>();;
 	
 	@Test
-	public void testGetByEcode() {
-		pcm = new ProductCodeMap();
-		pcm.add("1234", "172829", "83435", "238748374");
-		pcm.add("1234", "23843", "2387438", "34839333301");
-		pcm.add("1234", "1723423", "833234", "2384343742");
-		pcm.add("1234", "172829", "83435", "2384343374");
-		pcm.add("1234", "23843", "235643", "3445654545454550");
+	public void testGetByEcodeNew() throws IOException {
+	
+		OperationCandyJarResult row = new OperationCandyJarResult();
+		row.setECode("DFJACJGNAOAKJHAM");
+		row.setStyle("462005");
+		row.setSKU("40213892");
+		row.setUPC("38495178345");
+		row.setSUPC("38495178345");
+		row.setPresale("1");
+		row.setPresaleEndDate("Y");
+		row.setHotMarket("0");
+		row.setHotMarketEndDate("N");
+		row.setSpecialOrder("0");
+		row.setVDCEligible("N");
+		resultRow.add(row);
 		
-		assertEquals(pcm, repo.getByEcode("1234"));
+		assertTrue(row.equals(repo.getByEcode("DFJACJGNAOAKJHAM").get(0)));
 	}
+	
 	@Test
-	public void testGetByStyle() {
-		pcm = new ProductCodeMap();
-		pcm.add("1235", "461997", "83435", "238748374");
-		pcm.add("1235", "461997", "2387438", "34839633330");
-		pcm.add("1235", "461997", "833234", "2384237234374");
-		pcm.add("1235", "461997", "83435", "23843454936374");
-		pcm.add("1235", "461997", "235643", "344565844564550");
+	public void testGetByStyle() throws IOException {
+	
+		OperationCandyJarResult row = new OperationCandyJarResult();
+		row.setECode("DFJACJGNAOAKJHAM");
+		row.setStyle("462005");
+		row.setSKU("40213892");
+		row.setUPC("38495178345");
+		row.setSUPC("38495178345");
+		row.setPresale("1");
+		row.setPresaleEndDate("Y");
+		row.setHotMarket("0");
+		row.setHotMarketEndDate("N");
+		row.setSpecialOrder("0");
+		row.setVDCEligible("N");
+		resultRow.add(row);
 		
-		assertEquals(pcm, repo.getByStyle("461997"));
+		assertTrue(row.equals(repo.getByStyle("462005").get(0)));
 	}
+	
 	@Test
-	public void testGetBySku() {
-		pcm = new ProductCodeMap();
-		pcm.add("1236", "461998", "4021891", "24563800748374");
-		pcm.add("1236", "461998", "4021891", "34839388345640");
-		pcm.add("1236", "461998", "4021891", "23843466374");
-		pcm.add("1236", "461998", "4021891", "23843444546374");
-		pcm.add("1236", "461998", "4021891", "3445452264450");
+	public void testGetBySKU() throws IOException {
+	
+		OperationCandyJarResult row = new OperationCandyJarResult();
+		row.setECode("DFJACJGNAOAKJHAM");
+		row.setStyle("462005");
+		row.setSKU("40213892");
+		row.setUPC("38495178345");
+		row.setSUPC("38495178345");
+		row.setPresale("1");
+		row.setPresaleEndDate("Y");
+		row.setHotMarket("0");
+		row.setHotMarketEndDate("N");
+		row.setSpecialOrder("0");
+		row.setVDCEligible("N");
+		resultRow.add(row);
 		
-		assertEquals(pcm, repo.getBySku("4021891"));
+		assertTrue(row.equals(repo.getBySku("40213892").get(0)));
 	}
+	
 	@Test
-	public void testGetByUpc() {
-		pcm = new ProductCodeMap();
-		pcm.add("1237", "462005", "4021892", "38495178345");
+	public void testGetByUPC() throws IOException {
+	
+		OperationCandyJarResult row = new OperationCandyJarResult();
+		row.setECode("DFJACJGNAOAKJHAM");
+		row.setStyle("462005");
+		row.setSKU("40213892");
+		row.setUPC("38495178345");
+		row.setSUPC("38495178345");
+		row.setPresale("1");
+		row.setPresaleEndDate("Y");
+		row.setHotMarket("0");
+		row.setHotMarketEndDate("N");
+		row.setSpecialOrder("0");
+		row.setVDCEligible("N");
+		resultRow.add(row);
 		
-		assertEquals(pcm, repo.getByUpc("38495178345"));
+		assertTrue(row.equals(repo.getByUpc("38495178345").get(0)));
 	}
+	
 	
 }

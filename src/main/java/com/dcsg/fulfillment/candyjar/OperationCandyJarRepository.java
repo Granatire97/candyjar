@@ -9,92 +9,166 @@ import org.springframework.stereotype.Repository;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 import java.sql.ResultSet;
 
 @Repository
 public class OperationCandyJarRepository {
 	
     private @Autowired JdbcTemplate jdbcTemplate;
+    
+    public List<OperationCandyJarResult> getByEcode(String eCode) throws IOException{
 
-    public ProductCodeMap getByEcode(String eCode) {
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, "
+    			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
+    			+ " as Special_Order, ref_field38 as VDC_Eligible "
+    			+ "from item_cbo "
+    			+ "inner join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
+    			+ "where item_image_filename like ?";
 
-        String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC " + 
-        		"from item_cbo " + 
-        		"where item_image_filename like ?";
+    	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 
-        try {
-            ProductCodeMap pcm = new ProductCodeMap();
-            pcm.addAll(jdbcTemplate.query(sql, new Object[] {"%" + eCode + "%"}, new ProductCodeMapRowMapper())); 
-           
-            return pcm;
+    	try {
+    		results = jdbcTemplate.query(sql,  new Object[] {"%" + eCode + "%"}, new RowMapper<OperationCandyJarResult>(){
+    			public OperationCandyJarResult mapRow(ResultSet rs, int rowNum)
+    					throws SQLException{
 
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+    				OperationCandyJarResult result = new OperationCandyJarResult();
+    				result.setECode(rs.getString(1).split("/")[6].split("\\?|_")[0]);
+    				result.setStyle(rs.getString(2));
+    				result.setSKU(rs.getString(3));
+    				result.setUPC(rs.getString(4));
+    				result.setSUPC(rs.getString(5));
+    				result.setPresale(rs.getString(6));
+    				result.setPresaleEndDate(rs.getString(7));
+    				result.setHotMarket(rs.getString(8));
+    				result.setHotMarketEndDate(rs.getString(9));
+    				result.setSpecialOrder(rs.getString(10));
+    				result.setVDCEligible(rs.getString(11));
+
+    				return result;
+    			} 
+    		});
+    	} catch (EmptyResultDataAccessException e) {}
+
+    	return results;
     }
-    public ProductCodeMap getByStyle(String style) {
-  
-        String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC " + 
-        		"from item_cbo " + 
-        		"where item_style = ?";
+    
+    public List<OperationCandyJarResult> getByStyle(String style) throws IOException{
+        	
+      	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, "
+    			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
+      			+ " as Special_Order, ref_field38 as VDC_Eligible "
+    			+ "from item_cbo "
+    			+ "inner join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
+    			+ "where item_style = ?";
 
-        try {
-        	ProductCodeMap pcm = new ProductCodeMap();
-            pcm.addAll(jdbcTemplate.query(sql, new Object[] {style}, new ProductCodeMapRowMapper()));
-            
-            return pcm;
+    	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+    	try {
+    		results = jdbcTemplate.query(sql,  new Object[] {style}, new RowMapper<OperationCandyJarResult>(){
+    			public OperationCandyJarResult mapRow(ResultSet rs, int rowNum)
+    					throws SQLException{
+
+    				OperationCandyJarResult result = new OperationCandyJarResult();
+    				result.setECode(rs.getString(1).split("/")[6].split("\\?|_")[0]);
+    				result.setStyle(rs.getString(2));
+    				result.setSKU(rs.getString(3));
+    				result.setUPC(rs.getString(4));
+    				result.setSUPC(rs.getString(5));
+    				result.setPresale(rs.getString(6));
+    				result.setPresaleEndDate(rs.getString(7));
+    				result.setHotMarket(rs.getString(8));
+    				result.setHotMarketEndDate(rs.getString(9));
+    				result.setSpecialOrder(rs.getString(10));
+    				result.setVDCEligible(rs.getString(11));
+
+    				return result;
+    			} 
+    		});
+    	} catch (EmptyResultDataAccessException e) {}
+
+    	return results;
     }
-    public ProductCodeMap getBySku(String sku) {
+    
+    public List<OperationCandyJarResult> getBySku(String sku) throws IOException{
+    	
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, "
+    			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
+      			+ " as Special_Order, ref_field38 as VDC_Eligible "
+    			+ "from item_cbo "
+    			+ "inner join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
+    			+ "where item_name = ?";
+    	
+    	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 
-        String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC " + 
-        		"from item_cbo " + 
-        		"where item_name = ?";
+    	try {
+    		results = jdbcTemplate.query(sql,  new Object[] {sku}, new RowMapper<OperationCandyJarResult>(){
+    			public OperationCandyJarResult mapRow(ResultSet rs, int rowNum)
+    					throws SQLException{
 
-        try {
-        	ProductCodeMap pcm = new ProductCodeMap();
-            pcm.addAll(jdbcTemplate.query(sql, new Object[] {sku}, new ProductCodeMapRowMapper()));
+    				OperationCandyJarResult result = new OperationCandyJarResult();
+    				result.setECode(rs.getString(1).split("/")[6].split("\\?|_")[0]);
+    				result.setStyle(rs.getString(2));
+    				result.setSKU(rs.getString(3));
+    				result.setUPC(rs.getString(4));
+    				result.setSUPC(rs.getString(5));
+    				result.setPresale(rs.getString(6));
+    				result.setPresaleEndDate(rs.getString(7));
+    				result.setHotMarket(rs.getString(8));
+    				result.setHotMarketEndDate(rs.getString(9));
+    				result.setSpecialOrder(rs.getString(10));
+    				result.setVDCEligible(rs.getString(11));
 
-            return pcm;
+    				return result;
+    			} 
+    		});
+    	} catch (EmptyResultDataAccessException e) {}
 
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+    	return results;
     }
-    public ProductCodeMap getByUpc(String upc) {
+    
+    public List<OperationCandyJarResult> getByUpc(String upc) throws IOException{
 
-        String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC " + 
-        		"from item_cbo " + 
-        		"where item_bar_code = ?";
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, "
+    			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
+      			+ " as Special_Order, ref_field38 as VDC_Eligible "
+    			+ "from item_cbo "
+    			+ "inner join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
+    			+ "where item_bar_code = ?";
 
-        try {
-        	ProductCodeMap pcm = new ProductCodeMap();
-            pcm.addAll(jdbcTemplate.query(sql, new Object[] {upc}, new ProductCodeMapRowMapper()));
+    	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 
-            return pcm;
+    	try {
+    		results = jdbcTemplate.query(sql,  new Object[] {upc}, new RowMapper<OperationCandyJarResult>(){
+    			public OperationCandyJarResult mapRow(ResultSet rs, int rowNum)
+    					throws SQLException{
 
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+    				OperationCandyJarResult result = new OperationCandyJarResult();
+    				result.setECode(rs.getString(1).split("/")[6].split("\\?|_")[0]);
+    				result.setStyle(rs.getString(2));
+    				result.setSKU(rs.getString(3));
+    				result.setUPC(rs.getString(4));
+    				result.setSUPC(rs.getString(5));
+    				result.setPresale(rs.getString(6));
+    				result.setPresaleEndDate(rs.getString(7));
+    				result.setHotMarket(rs.getString(8));
+    				result.setHotMarketEndDate(rs.getString(9));
+    				result.setSpecialOrder(rs.getString(10));
+    				result.setVDCEligible(rs.getString(11));
+
+    				return result;
+    			} 
+    		});
+    	} catch (EmptyResultDataAccessException e) {}
+
+    	return results;
     }
+    
 }
+    
 
-class ProductCodeMapRowMapper implements RowMapper<List<String>> {
 
-    @Override
-    public List<String> mapRow(ResultSet rs, int rowNum) throws SQLException {
-        ArrayList<String> productInfo = new ArrayList<String>();
-        String eCode = rs.getString(1).split("/")[6].split("_")[0];
-        productInfo.add(eCode);
-        productInfo.add(rs.getString(2));
-        productInfo.add(rs.getString(3));
-        productInfo.add(rs.getString(4));
-        
-        return productInfo;
-    }
-}
+
 
 
