@@ -1,10 +1,13 @@
 package com.dcsg.fulfillment.candyjar;
 
+import org.mockito.internal.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import antlr.StringUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -101,14 +104,17 @@ public class OperationCandyJarRepository {
     			+ "where item_name = ?";
     	
     	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
-
     	try {
     		results = jdbcTemplate.query(sql,  new Object[] {sku}, new RowMapper<OperationCandyJarResult>(){
     			public OperationCandyJarResult mapRow(ResultSet rs, int rowNum)
     					throws SQLException{
 
     				OperationCandyJarResult result = new OperationCandyJarResult();
-    				result.setECode(rs.getString(1).split("/")[6].split("\\?|_")[0]);
+    				String imageFilename = rs.getString(1);
+    				if (imageFilename != null)
+    					result.setECode(imageFilename.split("/")[6].split("\\?|_")[0]);
+    				else
+    					result.setECode(imageFilename);
     				result.setStyle(rs.getString(2));
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
@@ -135,12 +141,12 @@ public class OperationCandyJarRepository {
       			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "inner join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
-    			+ "where item_bar_code = ?";
+    			+ "where item_bar_code = ? or supplier_item_barcode = ?";
 
     	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 
     	try {
-    		results = jdbcTemplate.query(sql,  new Object[] {upc}, new RowMapper<OperationCandyJarResult>(){
+    		results = jdbcTemplate.query(sql,  new Object[] {upc, upc}, new RowMapper<OperationCandyJarResult>(){
     			public OperationCandyJarResult mapRow(ResultSet rs, int rowNum)
     					throws SQLException{
 

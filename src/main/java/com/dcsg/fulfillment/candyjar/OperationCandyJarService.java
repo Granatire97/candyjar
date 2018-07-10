@@ -32,7 +32,6 @@ public class OperationCandyJarService {
 		String command = "grep -hn \":\\\"" + sku + "\\\"\" ../../apps/syncatc/log/SyncATC.network.activity.*";
 		List<String> lines = rce.executeCommand(command);
 		
-		System.out.println(lines);
 		for(int i = 0; i < lines.size(); i++) {
 			StringBuilder newLine = new StringBuilder(lines.get(i).split(" ")[2]);
 			newLine.insert(newLine.length()-15, '-');
@@ -50,21 +49,29 @@ public class OperationCandyJarService {
 		RemoteCommandExecuter rce = new RemoteCommandExecuter(config.getUnixUsername(), config.getUnixPassword(), config.getUnixHost(), 22);
 		
 		String command = "find ../../apps/filepolling/DSG.EOM.WCS.InventorySync/archive -mtime -1 -exec grep -ih \"" + sku + "\" {} \\;";
+		String command1 = "grep \"" + sku + "\" ../../apps/filepolling/DSG.EOM.WCS.InventorySync/archive/InventorySync_*.DSG_ECOM.csv";
 		
-		List<String> lines = rce.executeCommand(command);
+		List<String> lines = rce.executeCommand(command1);
 		List<HashMap> entries = new ArrayList<HashMap>();
 		String [ ] keys = {"SKU", "Store Number", "Inventory Status", "Available Quantity"};
 		
 		for (int i = 0; i < lines.size(); i++) {
 			HashMap<String, String> data = new HashMap<String, String>();
-			String [] item = lines.get(i).split(",");
+			String time = lines.get(i).split("_")[1].split("\\.")[0];
+			StringBuilder timestamp = new StringBuilder(time);
+			timestamp.insert(4,'-');
+			timestamp.insert(7,'-');
+			timestamp.insert(10,' ');
+			timestamp.insert(13,':');
+			timestamp.insert(16,':');
+			timestamp.insert(19,'.');
+			data.put("Time", timestamp.toString());
+			String [] item = lines.get(i).split(":")[1].split(",");
 			for(int j = 0; j < item.length; j++) {
 				data.put(keys[j].replaceAll(" ", ""), item[j]);
 			}
 			entries.add(data);
 		}
-		
-		
 		return entries;
 	}
 	

@@ -1,5 +1,7 @@
 package com.dcsg.fulfillment.candyjar;
 
+
+
 public class OperationCandyJarResult {
 
 		private String eCode;
