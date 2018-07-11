@@ -1,13 +1,10 @@
 package com.dcsg.fulfillment.candyjar;
 
-import org.mockito.internal.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import antlr.StringUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,7 +19,7 @@ public class OperationCandyJarRepository {
     
     public List<OperationCandyJarResult> getByEcode(String eCode) throws IOException{
 
-    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, "
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, description as Description,  "
     			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
     			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
@@ -42,12 +39,13 @@ public class OperationCandyJarRepository {
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
     				result.setSUPC(rs.getString(5));
-    				result.setPresale(rs.getString(6));
-    				result.setPresaleEndDate(rs.getString(7));
-    				result.setHotMarket(rs.getString(8));
-    				result.setHotMarketEndDate(rs.getString(9));
-    				result.setSpecialOrder(rs.getString(10));
-    				result.setVDCEligible(rs.getString(11));
+    				result.setDescription(rs.getString(6));
+    				result.setPresale(rs.getString(7));
+    				result.setPresaleEndDate(rs.getString(8));
+    				result.setHotMarket(rs.getString(9));
+    				result.setHotMarketEndDate(rs.getString(10));
+    				result.setSpecialOrder(rs.getString(11));
+    				result.setVDCEligible(rs.getString(12));
 
     				return result;
     			} 
@@ -59,7 +57,7 @@ public class OperationCandyJarRepository {
     
     public List<OperationCandyJarResult> getByStyle(String style) throws IOException{
         	
-      	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, "
+      	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, description as Description, "
     			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
       			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
@@ -79,12 +77,13 @@ public class OperationCandyJarRepository {
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
     				result.setSUPC(rs.getString(5));
-    				result.setPresale(rs.getString(6));
-    				result.setPresaleEndDate(rs.getString(7));
-    				result.setHotMarket(rs.getString(8));
-    				result.setHotMarketEndDate(rs.getString(9));
-    				result.setSpecialOrder(rs.getString(10));
-    				result.setVDCEligible(rs.getString(11));
+    				result.setDescription(rs.getString(6));
+    				result.setPresale(rs.getString(7));
+    				result.setPresaleEndDate(rs.getString(8));
+    				result.setHotMarket(rs.getString(9));
+    				result.setHotMarketEndDate(rs.getString(10));
+    				result.setSpecialOrder(rs.getString(11));
+    				result.setVDCEligible(rs.getString(12));
 
     				return result;
     			} 
@@ -96,7 +95,7 @@ public class OperationCandyJarRepository {
     
     public List<OperationCandyJarResult> getBySku(String sku) throws IOException{
     	
-    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, "
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, description as Description, "
     			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
       			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
@@ -119,12 +118,13 @@ public class OperationCandyJarRepository {
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
     				result.setSUPC(rs.getString(5));
-    				result.setPresale(rs.getString(6));
-    				result.setPresaleEndDate(rs.getString(7));
-    				result.setHotMarket(rs.getString(8));
-    				result.setHotMarketEndDate(rs.getString(9));
-    				result.setSpecialOrder(rs.getString(10));
-    				result.setVDCEligible(rs.getString(11));
+    				result.setDescription(rs.getString(6));
+    				result.setPresale(rs.getString(7));
+    				result.setPresaleEndDate(rs.getString(8));
+    				result.setHotMarket(rs.getString(9));
+    				result.setHotMarketEndDate(rs.getString(10));
+    				result.setSpecialOrder(rs.getString(11));
+    				result.setVDCEligible(rs.getString(12));
 
     				return result;
     			} 
@@ -136,7 +136,7 @@ public class OperationCandyJarRepository {
     
     public List<OperationCandyJarResult> getByUpc(String upc) throws IOException{
 
-    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, "
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, description as Description, "
     			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
       			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
@@ -156,12 +156,13 @@ public class OperationCandyJarRepository {
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
     				result.setSUPC(rs.getString(5));
-    				result.setPresale(rs.getString(6));
-    				result.setPresaleEndDate(rs.getString(7));
-    				result.setHotMarket(rs.getString(8));
-    				result.setHotMarketEndDate(rs.getString(9));
-    				result.setSpecialOrder(rs.getString(10));
-    				result.setVDCEligible(rs.getString(11));
+    				result.setDescription(rs.getString(6));
+    				result.setPresale(rs.getString(7));
+    				result.setPresaleEndDate(rs.getString(8));
+    				result.setHotMarket(rs.getString(9));
+    				result.setHotMarketEndDate(rs.getString(10));
+    				result.setSpecialOrder(rs.getString(11));
+    				result.setVDCEligible(rs.getString(12));
 
     				return result;
     			} 

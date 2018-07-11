@@ -49,7 +49,7 @@ public class OperationCandyJarService {
 		RemoteCommandExecuter rce = new RemoteCommandExecuter(config.getUnixUsername(), config.getUnixPassword(), config.getUnixHost(), 22);
 		
 		String command = "find ../../apps/filepolling/DSG.EOM.WCS.InventorySync/archive -mtime -1 -exec grep -ih \"" + sku + "\" {} \\;";
-		String command1 = "grep \"" + sku + "\" ../../apps/filepolling/DSG.EOM.WCS.InventorySync/archive/InventorySync_*.DSG_ECOM.csv";
+		String command1 = "grep \"" + sku + ",\" ../../apps/filepolling/DSG.EOM.WCS.InventorySync/archive/InventorySync_*.DSG_ECOM.csv";
 		
 		List<String> lines = rce.executeCommand(command1);
 		List<HashMap> entries = new ArrayList<HashMap>();

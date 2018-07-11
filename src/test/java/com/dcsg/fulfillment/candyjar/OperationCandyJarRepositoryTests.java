@@ -35,6 +35,7 @@ public class OperationCandyJarRepositoryTests {
 		row.setSKU("40213892");
 		row.setUPC("38495178345");
 		row.setSUPC("38495178345");
+		row.setDescription("Its time to play the game");
 		row.setPresale("1");
 		row.setPresaleEndDate("Y");
 		row.setHotMarket("0");
@@ -55,6 +56,7 @@ public class OperationCandyJarRepositoryTests {
 		row.setSKU("40213892");
 		row.setUPC("38495178345");
 		row.setSUPC("38495178345");
+		row.setDescription("Its time to play the game");
 		row.setPresale("1");
 		row.setPresaleEndDate("Y");
 		row.setHotMarket("0");
@@ -75,6 +77,7 @@ public class OperationCandyJarRepositoryTests {
 		row.setSKU("40213892");
 		row.setUPC("38495178345");
 		row.setSUPC("38495178345");
+		row.setDescription("Its time to play the game");
 		row.setPresale("1");
 		row.setPresaleEndDate("Y");
 		row.setHotMarket("0");
@@ -95,6 +98,7 @@ public class OperationCandyJarRepositoryTests {
 		row.setSKU("40213892");
 		row.setUPC("38495178345");
 		row.setSUPC("38495178345");
+		row.setDescription("Its time to play the game");
 		row.setPresale("1");
 		row.setPresaleEndDate("Y");
 		row.setHotMarket("0");

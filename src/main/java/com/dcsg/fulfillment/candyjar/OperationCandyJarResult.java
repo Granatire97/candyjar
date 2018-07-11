@@ -9,6 +9,7 @@ public class OperationCandyJarResult {
 		private String sku;
 		private String upc;
 		private String sUPC;
+		private String description;
 		private String presale;
 		private String presaleEndDate;
 		private String hotMarket;
@@ -34,6 +35,10 @@ public class OperationCandyJarResult {
 		
 		public String getSUPC() {
 		    return sUPC;
+		}
+		
+		public String getDescription() {
+			return description;
 		}
 		
 		public String getPresale() {
@@ -80,6 +85,10 @@ public class OperationCandyJarResult {
 			this.sUPC = sUPC;
 		}
 		
+		public void setDescription(String description) {
+			this.description = description;
+		}
+		
 		public void setPresale(String presale) {
 		    this.presale = presale;
 		}
@@ -112,6 +121,7 @@ public class OperationCandyJarResult {
 					this.getSKU().compareTo(result.getSKU()) == 0 &&
 					this.getUPC().compareTo(result.getUPC()) == 0 &&
 					this.getSUPC().compareTo(result.getSUPC()) == 0 &&
+					this.getDescription().compareTo(result.getDescription()) == 0 &&
 					this.getPresale().compareTo(result.getPresale()) == 0 &&
 					this.getPresaleEndDate().compareTo(result.getPresaleEndDate()) == 0 &&
 					this.getHotMarket().compareTo(result.getHotMarket()) == 0 &&
