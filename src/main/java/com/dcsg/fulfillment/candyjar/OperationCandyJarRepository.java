@@ -156,7 +156,7 @@ public class OperationCandyJarRepository {
       			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
-    			+ "where item_bar_code = ?";
+    			+ "where item_bar_code = ? or supplier_item_barcode = ?";
 
     	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 

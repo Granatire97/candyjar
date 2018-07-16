@@ -48,10 +48,9 @@ public class OperationCandyJarService {
 	public List<HashMap> getSkuAvailableQuantity(String sku){
 		RemoteCommandExecuter rce = new RemoteCommandExecuter(config.getUnixUsername(), config.getUnixPassword(), config.getUnixHost(), 22);
 		
-		String command = "find ../../apps/filepolling/DSG.EOM.WCS.InventorySync/archive -mtime -1 -exec grep -ih \"" + sku + "\" {} \\;";
-		String command1 = "grep \"" + sku + ",\" ../../apps/filepolling/DSG.EOM.WCS.InventorySync/archive/InventorySync_*.DSG_ECOM.csv";
+		String command = "grep \"" + sku + ",\" ../../apps/filepolling/DSG.EOM.WCS.InventorySync/archive/InventorySync_*.DSG_ECOM.csv";
 		
-		List<String> lines = rce.executeCommand(command1);
+		List<String> lines = rce.executeCommand(command);
 		List<HashMap> entries = new ArrayList<HashMap>();
 		String [ ] keys = {"SKU", "Store Number", "Inventory Status", "Available Quantity"};
 		
