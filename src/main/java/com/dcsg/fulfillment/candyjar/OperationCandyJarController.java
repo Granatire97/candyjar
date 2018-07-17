@@ -3,6 +3,17 @@ package com.dcsg.fulfillment.candyjar;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class OperationCandyJarController {
 
 	public @Autowired OperationCandyJarService service;
+	private @Autowired OperationCandyJarConfiguration config;
 	
 	@RequestMapping(path = "/eCode")
 	@ResponseBody
@@ -71,6 +83,29 @@ public class OperationCandyJarController {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(service.getSkuAvailableQuantity(sku));
 		return json;
+	}
+	
+	@RequestMapping(path = "/EsbLiveCount")
+	@ResponseBody
+	public String getEsbLiveCount(@RequestParam(value="sku") String sku) throws IOException {
+		String url = config.getEsbUrl();
+		String payload = "[{\"location\":\"0\", \"sku\": \"" + sku + "\"}]";
+		System.out.println(payload);
+        StringEntity entity = new StringEntity(payload,
+                ContentType.APPLICATION_JSON);
+        
+        CredentialsProvider provider = new BasicCredentialsProvider();
+          
+        HttpClient client = HttpClientBuilder.create()
+          .setDefaultCredentialsProvider(provider)
+          .build();
+        
+        HttpPost request = new HttpPost(url);
+        request.setEntity(entity);
+        
+        HttpResponse response = client.execute(request);
+        
+        return EntityUtils.toString(response.getEntity());
 	}
 	
 	
