@@ -54,7 +54,6 @@ public class OperationCandyJarController {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(service.getBySku(sku));
-		System.out.println(json);
 		return json;
 	}
 	

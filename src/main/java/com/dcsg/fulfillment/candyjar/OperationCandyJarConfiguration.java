@@ -14,14 +14,17 @@ import org.springframework.web.filter.CorsFilter;
 public class OperationCandyJarConfiguration {
 	
 	@Value("${settings.cors_origin}")
-	private String allowedOrigin;
+	private String[] allowedOrigins;
 
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {
+		System.out.println(allowedOrigins[0]);
+		System.out.println(allowedOrigins[1]);
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin(allowedOrigin);
+		for(String origin: allowedOrigins)
+			config.addAllowedOrigin(origin);
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 		source.registerCorsConfiguration("/**", config);
@@ -51,4 +54,5 @@ public class OperationCandyJarConfiguration {
 		return esbUrl;
 	}
     
+	
 }
