@@ -24,7 +24,8 @@ public class OperationCandyJarRepository {
     			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
-    			+ "where item_image_filename like ?";
+    			+ "where item_image_filename like ?"
+    			+ "order by eCode, Style, SKU, UPC DESC";
 
     	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 
@@ -67,7 +68,8 @@ public class OperationCandyJarRepository {
       			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
-    			+ "where item_style = ?";
+    			+ "where item_style = ?"
+    			+ "order by Style, SKU DESC";
 
     	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 
@@ -110,7 +112,8 @@ public class OperationCandyJarRepository {
       			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
-    			+ "where item_name = ?";
+    			+ "where item_name = ?"
+    			+ "order by Style, SKU DESC";
     	
     	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
     	try {
@@ -156,7 +159,8 @@ public class OperationCandyJarRepository {
       			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
-    			+ "where item_bar_code = ? or supplier_item_barcode = ?";
+    			+ "where item_bar_code = ? or supplier_item_barcode = ?"
+    			+ "order by Style, SKU DESC";
 
     	List<OperationCandyJarResult> results = new ArrayList<OperationCandyJarResult>();
 
