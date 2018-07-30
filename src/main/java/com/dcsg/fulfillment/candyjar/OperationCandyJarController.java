@@ -2,6 +2,7 @@ package com.dcsg.fulfillment.candyjar;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -86,9 +87,9 @@ public class OperationCandyJarController {
 	
 	@RequestMapping(path = "/EsbLiveCount")
 	@ResponseBody
-	public String getEsbLiveCount(@RequestParam(value="sku") String sku) throws IOException {
+	public String getEsbLiveCount(@RequestParam(value="location") String location, @RequestParam(value="sku") String sku) throws IOException {
 		String url = config.getEsbUrl();
-		String payload = "[{\"location\":\"0\", \"sku\": \"" + sku + "\"}]";
+		String payload = "[{\"location\":\"" + location + "\", \"sku\": \"" + sku + "\"}]";
 		System.out.println(payload);
         StringEntity entity = new StringEntity(payload,
                 ContentType.APPLICATION_JSON);
@@ -105,6 +106,23 @@ public class OperationCandyJarController {
         HttpResponse response = client.execute(request);
         
         return EntityUtils.toString(response.getEntity());
+	}
+	
+	@RequestMapping(path = "/SkuBopisHistory")
+	@ResponseBody
+	public String getSkuBopisHistory(@RequestParam(value="location") String location, @RequestParam(value="sku") String sku) throws IOException {
+		//System.out.println(service.getSkuBopisHistory(location, sku).toString());
+		return service.getSkuBopisHistory(location, sku).toString();
+	}
+	
+	@RequestMapping(path = "/skuByUpc")
+	@ResponseBody
+	public String getSkuByUpc(@RequestParam(value="upc") String upc) throws IOException {
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("sku", service.getSku(upc));
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = objectMapper.writeValueAsString(map);
+		return json;
 	}
 	
 	

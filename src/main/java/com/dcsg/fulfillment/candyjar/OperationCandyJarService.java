@@ -26,6 +26,9 @@ public class OperationCandyJarService {
 	public List<OperationCandyJarResult> getByUpc(String Upc) throws IOException {
 		return repo.getByUpc(Upc);
 	}
+	public String getSku(String upc) {
+		return repo.getSku(upc);
+	}
 
 	public List<String> getSkuHistory(String sku) {
 		RemoteCommandExecuter rce = new RemoteCommandExecuter(config.getUnixUsername(), config.getUnixPassword(), config.getUnixHost(), 22);
@@ -73,6 +76,25 @@ public class OperationCandyJarService {
 		}
 		return entries;
 	}
+	public List<String> getSkuBopisHistory(String location, String sku) {
+		RemoteCommandExecuter rce = new RemoteCommandExecuter(config.getUnixUsername(), config.getUnixPassword(), config.getUnixHost(), 22);
+		//System.out.println("hi");
+		String command = "grep -hn \":\\\"" + location + "\\\",\\\"sku\\\":\\\"" + sku + "\\\"\" ../../apps/syncatc/log/SyncATC.facility.activity.*";
+		List<String> lines = rce.executeCommand(command);
+		
+		for(int i = 0; i < lines.size(); i++) {
+			StringBuilder newLine = new StringBuilder(lines.get(i).split(" ")[2]);
+			newLine.insert(newLine.length()-15, '-');
+			newLine.insert(newLine.length()-13, '-');
+			newLine.insert(newLine.length()-11, ' ');
+			newLine.insert(newLine.length()-9, ':');
+			newLine.insert(newLine.length()-7, ':');
+			newLine.insert(newLine.length()-5, '.');
+			lines.set(i, newLine.toString());		
+		}
+		return lines;
+	}
+	
 	
 	
 }
