@@ -197,7 +197,7 @@ public class OperationCandyJarRepository {
     }
     
     public String getSku(String upc) {
-    	String sql = "select item_name as SKU "
+    	String sql = "select min(item_name) as SKU "
     			+ " from item_cbo "
     			+ " left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
     			+ " where item_bar_code = ? or supplier_item_barcode = ?";
