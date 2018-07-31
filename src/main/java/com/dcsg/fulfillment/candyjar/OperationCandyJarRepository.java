@@ -19,8 +19,7 @@ public class OperationCandyJarRepository {
     
     public List<OperationCandyJarResult> getByEcode(String eCode) throws IOException{
 
-    	String sql = "select SUBSTR(item_image_filename, instr(item_image_filename,'/',-1) + 1, REGEXP_INSTR(item_image_filename,'[?_]',1) - instr(item_image_filename,'/',-1) - 1) as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode" 
-    			+ " as sUPC, description as Description, "
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, description as Description,  "
     			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
     			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
@@ -36,7 +35,12 @@ public class OperationCandyJarRepository {
     					throws SQLException{
 
     				OperationCandyJarResult result = new OperationCandyJarResult();	
-    				result.setECode(rs.getString(1));
+    				String imageFilename = rs.getString(1);
+    				if(imageFilename == null) {
+    					result.setECode(imageFilename);
+    				} else {
+    					result.setECode(imageFilename.split("/")[6].split("\\?|_")[0]);
+    				}
     				result.setStyle(rs.getString(2));
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
@@ -59,10 +63,9 @@ public class OperationCandyJarRepository {
     
     public List<OperationCandyJarResult> getByStyle(String style) throws IOException{
         	
-    	String sql = "select SUBSTR(item_image_filename, instr(item_image_filename,'/',-1) + 1, REGEXP_INSTR(item_image_filename,'[?_]',1) - instr(item_image_filename,'/',-1) - 1) as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode" 
-    			+ " as sUPC, description as Description, "
+      	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, description as Description, "
     			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
-    			+ " as Special_Order, ref_field38 as VDC_Eligible "
+      			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
     			+ "where item_style = ?"
@@ -76,7 +79,12 @@ public class OperationCandyJarRepository {
     					throws SQLException{
 
     				OperationCandyJarResult result = new OperationCandyJarResult();
-    				result.setECode(rs.getString(1));
+    				String imageFilename = rs.getString(1);
+    				if(imageFilename == null) {
+    					result.setECode(imageFilename);
+    				} else {
+    					result.setECode(imageFilename.split("/")[6].split("\\?|_")[0]);
+    				}
     				result.setStyle(rs.getString(2));
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
@@ -99,10 +107,9 @@ public class OperationCandyJarRepository {
     
     public List<OperationCandyJarResult> getBySku(String sku) throws IOException{
     	
-    	String sql = "select SUBSTR(item_image_filename, instr(item_image_filename,'/',-1) + 1, REGEXP_INSTR(item_image_filename,'[?_]',1) - instr(item_image_filename,'/',-1) - 1) as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode" 
-    			+ " as sUPC, description as Description, "
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, description as Description, "
     			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
-    			+ " as Special_Order, ref_field38 as VDC_Eligible "
+      			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
     			+ "where item_name = ?"
@@ -115,7 +122,16 @@ public class OperationCandyJarRepository {
     					throws SQLException{
 
     				OperationCandyJarResult result = new OperationCandyJarResult();
-    				result.setECode(rs.getString(1));
+    				String imageFilename = rs.getString(1);
+    				if (imageFilename != null)
+    					result.setECode(imageFilename.split("/")[6].split("\\?|_")[0]);
+    				else
+    					result.setECode(imageFilename);
+    				if(imageFilename == null) {
+    					result.setECode(imageFilename);
+    				} else {
+    					result.setECode(imageFilename.split("/")[6].split("\\?|_")[0]);
+    				}
     				result.setStyle(rs.getString(2));
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
@@ -138,10 +154,9 @@ public class OperationCandyJarRepository {
     
     public List<OperationCandyJarResult> getByUpc(String upc) throws IOException{
 
-    	String sql = "select SUBSTR(item_image_filename, instr(item_image_filename,'/',-1) + 1, REGEXP_INSTR(item_image_filename,'[?_]',1) - instr(item_image_filename,'/',-1) - 1) as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode" 
-    			+ " as sUPC, description as Description, "
+    	String sql = "select item_image_filename as eCode, item_style as Style, item_name as SKU, item_bar_code as UPC, supplier_item_barcode as sUPC, description as Description, "
     			+ " ref_field8 as  Presale, REF_DATE_FIELD3_DTTM as Presale_Date, ref_field11 as HotMarket, REF_DATE_FIELD2_DTTM as HotMarket_Date, ref_field7" 
-    			+ " as Special_Order, ref_field38 as VDC_Eligible "
+      			+ " as Special_Order, ref_field38 as VDC_Eligible "
     			+ "from item_cbo "
     			+ "left join item_supplier_xref_cbo on item_supplier_xref_cbo.item_barcode = item_cbo.item_bar_code "
     			+ "where item_bar_code = ? or supplier_item_barcode = ?"
@@ -155,7 +170,12 @@ public class OperationCandyJarRepository {
     					throws SQLException{
 
     				OperationCandyJarResult result = new OperationCandyJarResult();
-    				result.setECode(rs.getString(1));
+    				String imageFilename = rs.getString(1);
+    				if(imageFilename == null) {
+    					result.setECode(imageFilename);
+    				} else {
+    					result.setECode(imageFilename.split("/")[6].split("\\?|_")[0]);
+    				}
     				result.setStyle(rs.getString(2));
     				result.setSKU(rs.getString(3));
     				result.setUPC(rs.getString(4));
